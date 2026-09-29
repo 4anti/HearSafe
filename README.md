@@ -10,6 +10,8 @@ HearSafe is an early-stage, open-source project for local environmental sound aw
 2. Build a reproducible audio-file classifier and report results using ESC-50's predefined folds.
 3. Add microphone input and visual alerts after file inference has been evaluated.
 
+The [portability plan](docs/portability.md) defines a shared detector that can accept audio from another program. The desktop app, command-line tool, and hardware integrations will use the same detection engine and structured events.
+
 The initial classes are baby crying, footsteps, coughing, door knock, clock alarm, glass breaking, siren, car horn, dog, and crackling fire. These are dataset labels for the first experiment; they are not a promise that the eventual application can reliably detect every real-world instance.
 
 ## Dataset setup
