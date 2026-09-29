@@ -1,0 +1,28 @@
+# Downloaded datasets and archives
+data/
+datasets/
+
+# Local environments, caches, and build outputs
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.egg-info/
+
+# Local settings and secrets
+.env
+.env.*
+!.env.example
+
+# Training outputs and model weights
+checkpoints/
+runs/
+wandb/
+*.pt
+*.pth
+*.onnx
