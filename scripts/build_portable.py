@@ -31,6 +31,7 @@ PUBLIC_REPORTS = (
     "esc50_evaluation.json",
     "esc50_evaluation.md",
     "esc50_model_manifest.json",
+    "portable_smoke.json",
 )
 RUNTIME_DISTRIBUTIONS = (
     "numpy",
@@ -220,7 +221,7 @@ def smoke_portable(folder: Path, research_model: Path | None = None) -> dict[str
             "devices_command": True,
             "desktop_startup": True,
             "detection_frames": len(frames),
-            "devices": listed_devices,
+            "device_count": len(listed_devices),
             "yamnet_benchmark": benchmark,
             "note": "Runs on the build computer. A separate machine without Python remains a manual check.",
         }
