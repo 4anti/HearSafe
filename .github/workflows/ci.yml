@@ -1,0 +1,47 @@
+name: Runtime checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  runtime:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+          enable-cache: true
+      - name: Install locked runtime and test dependencies
+        run: uv sync --frozen --extra dev
+      - name: Run tests without dataset or research training dependencies
+        run: uv run --frozen --extra dev pytest
+
+  portable:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+          enable-cache: true
+      - name: Install locked build dependencies
+        run: uv sync --frozen --extra build --extra dev
+      - name: Download checksum-verified official YAMNet package
+        run: uv run --frozen --extra build --extra dev hearsafe download-model
+      - name: Verify actual model integration before packaging
+        run: uv run --frozen --extra build --extra dev pytest
+      - name: Build and smoke-test relocated portable app
+        run: uv run --frozen --extra build --extra dev python scripts/build_portable.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HearSafe-Windows-x64
+          path: |
+            dist/HearSafe-Windows-x64.zip
+            dist/HearSafe-Windows-x64.zip.sha256
+          if-no-files-found: error
+          retention-days: 14

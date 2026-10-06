@@ -1,0 +1,20 @@
+{
+  "model_id": "esc50-cnn-v1",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "iterations": 64,
+  "method": "one window per model hop",
+  "includes": "model frontend and inference; excludes capture, resampling, and UI",
+  "inference_mean_ms": 12.536059375094055,
+  "inference_max_ms": 17.250000000785803,
+  "inference_p50_ms": 12.406349999764643,
+  "inference_p95_ms": 15.322624999862455,
+  "hop_ms": 480.0,
+  "keeps_up_with_hop": true,
+  "observed_peak_rss_mb": 124.91796875,
+  "process_peak_working_set_mb": 129.09765625,
+  "cpu_seconds": 1.21875,
+  "elapsed_seconds": 30.759418599998753,
+  "cpu_percent_one_core_basis": 3.96220102807811,
+  "model_load_ms": 231.149600000208
+}

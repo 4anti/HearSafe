@@ -26,3 +26,7 @@ wandb/
 *.pt
 *.pth
 *.onnx
+*.tflite
+*.pt2
+*.zip
+.uv-cache/

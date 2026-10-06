@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-06T12:56:33.081237+00:00",
+  "purpose": "Six direct-file smoke examples. This is not an accuracy evaluation or microphone, room, distance, hardware-alert or emergency-reliability validation.",
+  "selection": "First metadata CSV row in ESC-50 fold 1 for each named target category; no outcome-based selection.",
+  "score_note": "YAMNet scores are model outputs, not calibrated correctness probabilities. Relevant labels may overlap and do not necessarily identify the precise source.",
+  "model_id": "yamnet-mediapipe-v1",
+  "model_sha256": "4d8b4a53282dc83ef04e3e7dbc4fbc98082e34e44ed798e16c3a0cdd4c584faf",
+  "model_window_samples": 15600,
+  "model_sample_rate": 16000,
+  "model_hop_samples": 7680,
+  "dataset": "ESC-50",
+  "metadata_path": "data/ESC-50-master/meta/esc50.csv",
+  "metadata_sha256": "ca660da60191a97de289983a05821c9382d852a38a2ba8428980816b68cf6246",
+  "audio_saved_in_report": false,
+  "weights_saved_in_report": false,
+  "examples": [
+    {
+      "target_category": "dog",
+      "filename": "1-100032-A-0.wav",
+      "fold": 1,
+      "file_sha256": "f40a849a2375c8c63312a73dd2dd6c74007301fcc21b4be2ece29a642831e3d8",
+      "esc10_subset": true,
+      "analysis_windows": 10,
+      "relevant_label_names": [
+        "Dog",
+        "Bark",
+        "Canidae, dogs, wolves",
+        "Whimper (dog)"
+      ],
+      "primary_label_peak": {
+        "label_id": "/m/0bt9lr",
+        "label": "Dog",
+        "score": 0.94140625
+      },
+      "strongest_relevant_candidate": {
+        "label_id": "/m/0bt9lr",
+        "label": "Dog",
+        "score": 0.94140625
+      },
+      "strongest_frame": {
+        "start_ms": 1920.0,
+        "end_ms": 2895.0,
+        "rms": 0.09395166258679413,
+        "global_top_five": [
+          {
+            "label_id": "/m/0jbk",
+            "label": "Animal",
+            "score": 0.95703125
+          },
+          {
+            "label_id": "/m/068hy",
+            "label": "Domestic animals, pets",
+            "score": 0.95703125
+          },
+          {
+            "label_id": "/m/0bt9lr",
+            "label": "Dog",
+            "score": 0.94140625
+          },
+          {
+            "label_id": "/m/05tny_",
+            "label": "Bark",
+            "score": 0.80078125
+          },
+          {
+            "label_id": "/m/07rc7d9",
+            "label": "Bow-wow",
+            "score": 0.33203125
+          }
+        ]
+      },
+      "reproduce_command": "hearsafe detect \"data/ESC-50-master/audio/1-100032-A-0.wav\" --model models/yamnet --json --top 521"
+    },
+    {
+      "target_category": "crying_baby",
+      "filename": "1-187207-A-20.wav",
+      "fold": 1,
+      "file_sha256": "ddf5bf45f73bc73d1838bf0cb6af530584f324aef513112ee15c210e83ecbd6b",
+      "esc10_subset": true,
+      "analysis_windows": 10,
+      "relevant_label_names": [
+        "Baby cry, infant cry",
+        "Crying, sobbing"
+      ],
+      "primary_label_peak": {
+        "label_id": "/t/dd00002",
+        "label": "Baby cry, infant cry",
+        "score": 0.08203125
+      },
+      "strongest_relevant_candidate": {
+        "label_id": "/m/0463cq4",
+        "label": "Crying, sobbing",
+        "score": 0.109375
+      },
+      "strongest_frame": {
+        "start_ms": 2880.0,
+        "end_ms": 3855.0,
+        "rms": 0.1441433916664032,
+        "global_top_five": [
+          {
+            "label_id": "/m/01j3sz",
+            "label": "Laughter",
+            "score": 0.4140625
+          },
+          {
+            "label_id": "/t/dd00001",
+            "label": "Baby laughter",
+            "score": 0.19921875
+          },
+          {
+            "label_id": "/m/07r660_",
+            "label": "Giggle",
+            "score": 0.19921875
+          },
+          {
+            "label_id": "/m/07sq110",
+            "label": "Belly laugh",
+            "score": 0.19921875
+          },
+          {
+            "label_id": "/m/09x0r",
+            "label": "Speech",
+            "score": 0.109375
+          }
+        ]
+      },
+      "reproduce_command": "hearsafe detect \"data/ESC-50-master/audio/1-187207-A-20.wav\" --model models/yamnet --json --top 521"
+    },
+    {
+      "target_category": "door_wood_knock",
+      "filename": "1-101336-A-30.wav",
+      "fold": 1,
+      "file_sha256": "e738266e395e378102f74e0920b05ff5937543788420d5b2a6b8d3df8bdb3910",
+      "esc10_subset": false,
+      "analysis_windows": 10,
+      "relevant_label_names": [
+        "Knock"
+      ],
+      "primary_label_peak": {
+        "label_id": "/m/07r4wb8",
+        "label": "Knock",
+        "score": 0.80078125
+      },
+      "strongest_relevant_candidate": {
+        "label_id": "/m/07r4wb8",
+        "label": "Knock",
+        "score": 0.80078125
+      },
+      "strongest_frame": {
+        "start_ms": 1440.0,
+        "end_ms": 2415.0,
+        "rms": 0.12237432268544536,
+        "global_top_five": [
+          {
+            "label_id": "/m/07r4wb8",
+            "label": "Knock",
+            "score": 0.80078125
+          },
+          {
+            "label_id": "/m/02dgv",
+            "label": "Door",
+            "score": 0.4140625
+          },
+          {
+            "label_id": "/m/07qcpgn",
+            "label": "Tap",
+            "score": 0.08203125
+          },
+          {
+            "label_id": "/m/07pn_8q",
+            "label": "Chopping (food)",
+            "score": 0.08203125
+          },
+          {
+            "label_id": "/m/07pczhz",
+            "label": "Chop",
+            "score": 0.05859375
+          }
+        ]
+      },
+      "reproduce_command": "hearsafe detect \"data/ESC-50-master/audio/1-101336-A-30.wav\" --model models/yamnet --json --top 521"
+    },
+    {
+      "target_category": "clock_alarm",
+      "filename": "1-13613-A-37.wav",
+      "fold": 1,
+      "file_sha256": "2e28b25e14611723cdcc0becfa36468a8d0329a0c141e4f1d894bd6bb5773f34",
+      "esc10_subset": false,
+      "analysis_windows": 10,
+      "relevant_label_names": [
+        "Alarm clock",
+        "Alarm"
+      ],
+      "primary_label_peak": {
+        "label_id": "/m/046dlr",
+        "label": "Alarm clock",
+        "score": 0.66796875
+      },
+      "strongest_relevant_candidate": {
+        "label_id": "/m/046dlr",
+        "label": "Alarm clock",
+        "score": 0.66796875
+      },
+      "strongest_frame": {
+        "start_ms": 3840.0,
+        "end_ms": 4815.0,
+        "rms": 0.12396658490580884,
+        "global_top_five": [
+          {
+            "label_id": "/m/046dlr",
+            "label": "Alarm clock",
+            "score": 0.66796875
+          },
+          {
+            "label_id": "/m/07cx4",
+            "label": "Telephone",
+            "score": 0.5859375
+          },
+          {
+            "label_id": "/m/07pp8cl",
+            "label": "Telephone bell ringing",
+            "score": 0.5859375
+          },
+          {
+            "label_id": "/m/07pp_mv",
+            "label": "Alarm",
+            "score": 0.4140625
+          },
+          {
+            "label_id": "/t/dd00125",
+            "label": "Inside, small room",
+            "score": 0.1484375
+          }
+        ]
+      },
+      "reproduce_command": "hearsafe detect \"data/ESC-50-master/audio/1-13613-A-37.wav\" --model models/yamnet --json --top 521"
+    },
+    {
+      "target_category": "glass_breaking",
+      "filename": "1-20133-A-39.wav",
+      "fold": 1,
+      "file_sha256": "db6946133c37fbd4513fe932dbb71e0b077bf7d240beaed339eb6c88e48c903b",
+      "esc10_subset": false,
+      "analysis_windows": 10,
+      "relevant_label_names": [
+        "Glass",
+        "Shatter",
+        "Breaking"
+      ],
+      "primary_label_peak": {
+        "label_id": "/m/07rn7sz",
+        "label": "Shatter",
+        "score": 0.1484375
+      },
+      "strongest_relevant_candidate": {
+        "label_id": "/m/07pc8lb",
+        "label": "Breaking",
+        "score": 0.4140625
+      },
+      "strongest_frame": {
+        "start_ms": 1440.0,
+        "end_ms": 2415.0,
+        "rms": 0.1477504049096263,
+        "global_top_five": [
+          {
+            "label_id": "/m/07pc8lb",
+            "label": "Breaking",
+            "score": 0.4140625
+          },
+          {
+            "label_id": "/m/0242l",
+            "label": "Coin (dropping)",
+            "score": 0.33203125
+          },
+          {
+            "label_id": "/m/07qs1cx",
+            "label": "Crack",
+            "score": 0.33203125
+          },
+          {
+            "label_id": "/m/039jq",
+            "label": "Glass",
+            "score": 0.19921875
+          },
+          {
+            "label_id": "/m/07qv4k0",
+            "label": "Scrape",
+            "score": 0.19921875
+          }
+        ]
+      },
+      "reproduce_command": "hearsafe detect \"data/ESC-50-master/audio/1-20133-A-39.wav\" --model models/yamnet --json --top 521"
+    },
+    {
+      "target_category": "siren",
+      "filename": "1-31482-A-42.wav",
+      "fold": 1,
+      "file_sha256": "e4c640a001c2abe808389c90b90ba7084fb1922d58235e3ec95c18c4afb4ef5c",
+      "esc10_subset": false,
+      "analysis_windows": 10,
+      "relevant_label_names": [
+        "Siren",
+        "Civil defense siren",
+        "Police car (siren)",
+        "Ambulance (siren)",
+        "Fire engine, fire truck (siren)"
+      ],
+      "primary_label_peak": {
+        "label_id": "/m/03kmc9",
+        "label": "Siren",
+        "score": 0.5859375
+      },
+      "strongest_relevant_candidate": {
+        "label_id": "/m/04qvtq",
+        "label": "Police car (siren)",
+        "score": 0.73828125
+      },
+      "strongest_frame": {
+        "start_ms": 4320.0,
+        "end_ms": 5000.0,
+        "rms": 0.2733847419482459,
+        "global_top_five": [
+          {
+            "label_id": "/m/04qvtq",
+            "label": "Police car (siren)",
+            "score": 0.73828125
+          },
+          {
+            "label_id": "/m/03j1ly",
+            "label": "Emergency vehicle",
+            "score": 0.66796875
+          },
+          {
+            "label_id": "/m/03kmc9",
+            "label": "Siren",
+            "score": 0.5859375
+          },
+          {
+            "label_id": "/m/07pp_mv",
+            "label": "Alarm",
+            "score": 0.5
+          },
+          {
+            "label_id": "/m/012f08",
+            "label": "Motor vehicle (road)",
+            "score": 0.4140625
+          }
+        ]
+      },
+      "reproduce_command": "hearsafe detect \"data/ESC-50-master/audio/1-31482-A-42.wav\" --model models/yamnet --json --top 521"
+    }
+  ],
+  "observations": [
+    "These six fold-1 clips are examples only; no aggregate accuracy is reported and no microphone was used.",
+    "The crying-baby example is weak: peak Baby cry, infant cry score is 0.0820; peak broad Crying, sobbing score is 0.1094. Its strongest relevant frame is led by Laughter (0.4141), Baby laughter, Giggle and Belly laugh. A 0.5 watchlist threshold would miss this example.",
+    "The glass-breaking example peaks at Breaking 0.4141, while Shatter peaks at 0.1484. Coin (dropping), Crack and Scrape also appear among the strongest-frame candidates. A 0.5 watchlist threshold would miss these glass-related labels in this example.",
+    "The alarm-clock example peaks at Alarm clock 0.6680 but Telephone and Telephone bell ringing reach 0.5859 in the same frame. Overlapping categories need per-label review.",
+    "The dog, door-knock and siren examples have stronger matching candidates: Dog 0.9414, Knock 0.8008 and Police car (siren) 0.7383 respectively. These isolated file outputs do not establish reliability on other clips, room acoustics, microphone processing or distances.",
+    "Per-label thresholds and sustained/brief alert policies still require real speaker-to-headset trials; these examples evaluate file scores only."
+  ]
+}

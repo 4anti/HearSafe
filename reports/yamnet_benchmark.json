@@ -1,0 +1,20 @@
+{
+  "model_id": "yamnet-mediapipe-v1",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "iterations": 64,
+  "method": "one window per model hop",
+  "includes": "model frontend and inference; excludes capture, resampling, and UI",
+  "inference_mean_ms": 4.14395937508516,
+  "inference_max_ms": 5.4543000005651265,
+  "inference_p50_ms": 4.1299499998785905,
+  "inference_p95_ms": 5.069545000606013,
+  "hop_ms": 480.0,
+  "keeps_up_with_hop": true,
+  "observed_peak_rss_mb": 102.234375,
+  "process_peak_working_set_mb": 106.8125,
+  "cpu_seconds": 0.484375,
+  "elapsed_seconds": 30.757921799999167,
+  "cpu_percent_one_core_basis": 1.574797553455036,
+  "model_load_ms": 36.40360000099463
+}

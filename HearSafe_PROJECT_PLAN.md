@@ -1,6 +1,6 @@
 # HearSafe — AI Environmental Sound Awareness System
 
-> **Project status:** Planning / MVP Design  
+> **Historical design notes:** The implemented Windows prototype and current scope are documented in [README.md](README.md) and [the roadmap](docs/roadmap.md). Earlier options and examples below are not current acceptance claims.
 > **Primary goal:** Build an open-source, local-first AI system that recognizes important environmental sounds in real time and converts them into clear visual alerts.  
 > **Target users:** Primarily deaf or hard-of-hearing users, but also anyone who benefits from visual awareness of surrounding sounds.  
 > **Project type:** Audio Machine Learning + Signal Processing + Real-Time Inference + Desktop/Web Application  
@@ -41,7 +41,7 @@ Temporal Filtering + Confidence Threshold
 │ HEARSAFE                         │
 │                                  │
 │ GLASS BREAKING DETECTED          │
-│ Confidence: 96.2%                │
+│ Model score: 0.962               │
 │                                  │
 │ Detected 0.4 seconds ago         │
 └──────────────────────────────────┘

@@ -1,79 +1,92 @@
-# Portability and integration plan
+# Architecture and portability
 
-HearSafe should work as a reusable sound detector with optional interfaces around it. A desktop application is one client of the detector. A hardware project can use the same detector with its own microphone and display.
+HearSafe has a shared detector and replaceable input adapters. The desktop
+window is one client; another program can supply its own audio and consume
+structured results. The engine never opens a microphone itself.
 
-This document describes the intended design. These components have not been implemented yet.
-
-## Components
-
-```text
-Microphone, WAV file, or caller-provided audio
-                     |
-                     v
-             Audio input adapter
-                     |
-                     v
-      Shared preprocessing and buffering
-                     |
-                     v
-            Local model inference
-                     |
-                     v
-       Event filter and alert policy
-                     |
-          +----------+----------+
-          |          |          |
-     Python API   JSON CLI   Desktop UI
+```mermaid
+flowchart TD
+    MIC[Microphone capture worker] --> Q[Bounded audio queue]
+    Q --> DET[Detector on inference worker]
+    WAV[WAV adapter] --> DET
+    API[Caller supplied audio] --> DET
+    DET --> AUDIO[Mono conversion and continuous resampling]
+    AUDIO --> MODEL[Window buffering and CPU model]
+    MODEL --> EVENTS[Scores and optional alert rules]
+    EVENTS --> UI[Desktop updates on main thread]
+    EVENTS --> JSON[CLI JSON or Python results]
 ```
 
-The detector must accept audio supplied by another program. It must not require the desktop window or direct access to a particular microphone. Microphone selection and capture belong in replaceable input adapters.
+## Implemented input contract
 
-## Proposed input contract
+- `Detector.process(audio, sample_rate)` accepts consecutive floating-point
+  samples in `[-1, 1]`, as mono or samples-by-channels arrays.
+- The caller supplies the actual integer sample rate. Integer PCM must first be
+  scaled to normalized floats. Nonfinite samples are rejected.
+- Stereo is mixed to mono; continuous SoXR resampling preserves filter state
+  across chunks. Device audio can use its supported 44.1 or 48 kHz rate.
+- Overlapping model windows are buffered internally. `flush()` pads a remaining
+  file tail once; `reset()` clears audio, resampling, timing, and alert state.
+- After a gap or rate change, reset before feeding new audio. Timing starts at
+  zero in each new continuous segment. Construct a new detector for a model
+  switch. Call one detector from one inference worker.
 
-- Mono PCM audio, represented as `float32` samples in the range `[-1, 1]`.
-- The caller provides the sample rate and capture timestamp with each chunk.
-- The input adapter converts device audio to the model's documented sample rate. The initial target is 16 kHz.
-- The detector accepts consecutive chunks and handles buffering and overlapping analysis windows internally.
-- It can operate offline on a WAV file and online on live microphone chunks using the same preprocessing path.
+The microphone adapter copies input into a bounded queue, without inference or
+disk access inside the audio callback. Inference and Tkinter updates run
+separately. Overflow and device errors are reported. Detection state resets
+after dropped audio; denied, busy, or disconnected input stops capture and asks
+the user to select a device again. Raw audio is not recorded.
 
-## Proposed event contract
+## Versioned result contract
 
-Return a structured event rather than a UI notification. An example:
+One JSON line is an analysis frame with predictions and optional watchlist
+events. A single event has this shape:
 
 ```json
 {
   "schema_version": 1,
-  "label": "door_knock",
+  "model_id": "yamnet-mediapipe-v1",
+  "label_id": "/m/0bt9lr",
+  "label": "Dog",
   "score": 0.91,
-  "time_ms": 1730000000000,
+  "time_ms": 1935.0,
   "state": "started"
 }
 ```
 
-`score` is a model score, not a guarantee that the event occurred. The event filter should implement per-class thresholds, repeated-evidence checks, and cooldowns. The consuming program chooses whether to show a visual alert, vibrate, log an event, or take no action.
+Times are **audio-relative milliseconds**, not wall-clock timestamps. Model ID
+plus label ID identifies a category; YAMNet and ESC-50 labels are different.
+Scores describe model output, not verified correctness. Consumers choose how
+to display or use a result. CLI diagnostics stay on standard error.
 
-## Distribution targets
+Alerts are disabled until the user enables a watchlist. Each category has a
+threshold and cooldown. Sustained events require repeated evidence; brief
+events can use one strong result. A continuous sound generates one alert until
+it falls below the rearming level for two windows and the cooldown expires.
+Overlapping categories can generate separate selected events.
 
-1. **Python package:** expose a small API for feeding audio chunks and receiving events. Keep training dependencies separate from runtime dependencies.
-2. **Command-line tool:** accept WAV files or a selected microphone and optionally emit newline-delimited JSON events. This lets other programs integrate without importing Python code.
-3. **Desktop application:** use the same detector and bundle a CPU runtime, model, and UI as a downloadable folder or executable. Build and test a package separately for each operating system.
-4. **Model package:** export a small model to ONNX if accuracy and preprocessing parity hold. Include labels, configuration, model version, license information, and test audio with expected outputs. ONNX Runtime offers Python and C APIs and CPU execution on several desktop and edge platforms. Hardware-specific support must be verified on the actual target device.
+## Model packages
 
-The first release target should be a normal Windows or Linux computer with a USB or built-in microphone. Small Linux boards can follow once CPU use, memory, latency, and microphone capture are measured. Microcontrollers require a separate feasibility assessment because their memory and runtime support differ substantially.
+Each package contains `manifest.json`, labels, a model file, checksum,
+preprocessing settings, model ID/version, and provenance. The loader validates
+the package and tensor interface before capture. The portable model is pinned
+YAMNet through LiteRT CPU. Locally trained research models use ONNX Runtime CPU
+and the same NumPy frontend used during training; training normalization is
+embedded in ONNX. PyTorch is only needed for training and export.
 
-## Acceptance checks
+## Distribution and hardware
 
-- The same recorded audio produces matching labels and scores through the Python API, JSON CLI, and desktop app.
-- A caller can supply audio without installing or opening the desktop UI.
-- The runtime operates locally, with no network connection required for detection.
-- The model's sample rate, window length, labels, thresholds, and license are included in the model package.
-- On target hardware, report detection delay, CPU use, memory use, missed events, and false alerts.
-- A model update cannot silently change the event schema or label meanings.
+The first portable ZIP bundles Windows x64 executables, runtime libraries,
+YAMNet, and third-party notices. Keep the whole extracted folder together.
+Inference works offline; explicit model download belongs to source setup.
+The build runs a smoke check from a relocated folder containing spaces.
 
-## Reference documentation
+A microphone still needs a computer or board to run the model. Linux and
+Raspberry Pi are future source deployment targets, requiring compatible runtime
+packages and measurements on the actual hardware. This Windows ZIP cannot run
+there. Small microcontrollers require a separate model and runtime assessment.
+System-audio capture and categories trained from user recordings are later work.
 
-- [ONNX Runtime Python API](https://onnxruntime.ai/docs/get-started/with-python.html)
-- [ONNX Runtime C API](https://onnxruntime.ai/docs/get-started/with-c.html)
-- [ONNX Runtime execution providers](https://onnxruntime.ai/docs/execution-providers/)
-- [python-sounddevice input streams](https://python-sounddevice.readthedocs.io/en/latest/api/streams.html)
-- [PyInstaller bundle behavior](https://pyinstaller.org/en/stable/operating-mode.html)
+For acceptance procedures, see [testing](testing.md). For API and CLI examples,
+see [integration](integration.md). Published measurements and unperformed
+hardware checks are listed in [prototype results](../reports/prototype_results.md).

@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hearsafe"
+version = "0.1.0"
+description = "Offline environmental sound explorer and reusable microphone detector"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "MIT"
+dependencies = [
+  "numpy==1.26.4",
+  "scipy>=1.13,<1.17",
+  "soxr>=0.5,<2",
+  "sounddevice>=0.5,<0.6",
+  "soundfile>=0.13,<0.14",
+  "ai-edge-litert==2.2.0",
+  "ml-dtypes>=0.5,<1",
+  "onnxruntime>=1.20,<2",
+  "psutil>=6,<8",
+]
+
+[project.optional-dependencies]
+train = ["torch==2.8.0", "onnx>=1.17,<2", "onnxscript>=0.3,<1"]
+dev = ["pytest>=8,<10", "ruff>=0.12,<1"]
+build = ["pyinstaller>=6.16,<7"]
+
+[project.scripts]
+hearsafe = "hearsafe.cli:main"
+
+[project.gui-scripts]
+hearsafe-gui = "hearsafe.gui:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hearsafe"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

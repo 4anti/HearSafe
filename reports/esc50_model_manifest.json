@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "model_id": "esc50-cnn-v1",
+  "name": "HearSafe ESC-50 research",
+  "backend": "onnx",
+  "sample_rate": 16000,
+  "window_samples": 80000,
+  "hop_samples": 7680,
+  "model_file": "model.onnx",
+  "sha256": "94fbde309c99bae208574aa5f94f8fd4822837a9291e45d19ff469efc80d7301",
+  "labels": [
+    {
+      "id": "esc50:0",
+      "name": "dog"
+    },
+    {
+      "id": "esc50:1",
+      "name": "rooster"
+    },
+    {
+      "id": "esc50:2",
+      "name": "pig"
+    },
+    {
+      "id": "esc50:3",
+      "name": "cow"
+    },
+    {
+      "id": "esc50:4",
+      "name": "frog"
+    },
+    {
+      "id": "esc50:5",
+      "name": "cat"
+    },
+    {
+      "id": "esc50:6",
+      "name": "hen"
+    },
+    {
+      "id": "esc50:7",
+      "name": "insects"
+    },
+    {
+      "id": "esc50:8",
+      "name": "sheep"
+    },
+    {
+      "id": "esc50:9",
+      "name": "crow"
+    },
+    {
+      "id": "esc50:10",
+      "name": "rain"
+    },
+    {
+      "id": "esc50:11",
+      "name": "sea_waves"
+    },
+    {
+      "id": "esc50:12",
+      "name": "crackling_fire"
+    },
+    {
+      "id": "esc50:13",
+      "name": "crickets"
+    },
+    {
+      "id": "esc50:14",
+      "name": "chirping_birds"
+    },
+    {
+      "id": "esc50:15",
+      "name": "water_drops"
+    },
+    {
+      "id": "esc50:16",
+      "name": "wind"
+    },
+    {
+      "id": "esc50:17",
+      "name": "pouring_water"
+    },
+    {
+      "id": "esc50:18",
+      "name": "toilet_flush"
+    },
+    {
+      "id": "esc50:19",
+      "name": "thunderstorm"
+    },
+    {
+      "id": "esc50:20",
+      "name": "crying_baby"
+    },
+    {
+      "id": "esc50:21",
+      "name": "sneezing"
+    },
+    {
+      "id": "esc50:22",
+      "name": "clapping"
+    },
+    {
+      "id": "esc50:23",
+      "name": "breathing"
+    },
+    {
+      "id": "esc50:24",
+      "name": "coughing"
+    },
+    {
+      "id": "esc50:25",
+      "name": "footsteps"
+    },
+    {
+      "id": "esc50:26",
+      "name": "laughing"
+    },
+    {
+      "id": "esc50:27",
+      "name": "brushing_teeth"
+    },
+    {
+      "id": "esc50:28",
+      "name": "snoring"
+    },
+    {
+      "id": "esc50:29",
+      "name": "drinking_sipping"
+    },
+    {
+      "id": "esc50:30",
+      "name": "door_wood_knock"
+    },
+    {
+      "id": "esc50:31",
+      "name": "mouse_click"
+    },
+    {
+      "id": "esc50:32",
+      "name": "keyboard_typing"
+    },
+    {
+      "id": "esc50:33",
+      "name": "door_wood_creaks"
+    },
+    {
+      "id": "esc50:34",
+      "name": "can_opening"
+    },
+    {
+      "id": "esc50:35",
+      "name": "washing_machine"
+    },
+    {
+      "id": "esc50:36",
+      "name": "vacuum_cleaner"
+    },
+    {
+      "id": "esc50:37",
+      "name": "clock_alarm"
+    },
+    {
+      "id": "esc50:38",
+      "name": "clock_tick"
+    },
+    {
+      "id": "esc50:39",
+      "name": "glass_breaking"
+    },
+    {
+      "id": "esc50:40",
+      "name": "helicopter"
+    },
+    {
+      "id": "esc50:41",
+      "name": "chainsaw"
+    },
+    {
+      "id": "esc50:42",
+      "name": "siren"
+    },
+    {
+      "id": "esc50:43",
+      "name": "car_horn"
+    },
+    {
+      "id": "esc50:44",
+      "name": "engine"
+    },
+    {
+      "id": "esc50:45",
+      "name": "train"
+    },
+    {
+      "id": "esc50:46",
+      "name": "church_bells"
+    },
+    {
+      "id": "esc50:47",
+      "name": "airplane"
+    },
+    {
+      "id": "esc50:48",
+      "name": "fireworks"
+    },
+    {
+      "id": "esc50:49",
+      "name": "hand_saw"
+    }
+  ],
+  "frontend": "esc50-log-mel-v1",
+  "license": "Research; ESC-50 dataset CC BY-NC 3.0",
+  "provenance": {
+    "dataset": "ESC-50",
+    "dataset_url": "https://github.com/karolpiczak/ESC-50",
+    "train_folds": [
+      1,
+      2,
+      3
+    ],
+    "validation_fold": 4,
+    "held_out_fold": 5,
+    "weights_distribution": "Local research output; not included in the public portable download.",
+    "seed": 42,
+    "best_epoch": 45,
+    "normalization_folds": [
+      1,
+      2,
+      3
+    ],
+    "metadata_sha256": "ca660da60191a97de289983a05821c9382d852a38a2ba8428980816b68cf6246"
+  },
+  "preprocessing": {
+    "mel_bands": 64,
+    "mel_scale": "HTK",
+    "mel_min_hz": 125,
+    "mel_max_hz": 7500,
+    "spectrum": "magnitude",
+    "log_offset": 0.001,
+    "center": false,
+    "window": "Hann",
+    "window_samples": 400,
+    "hop_samples": 160,
+    "fft_samples": 512,
+    "feature_shape": [
+      1,
+      1,
+      64,
+      498
+    ],
+    "normalization": "Per-mel training-fold mean and standard deviation embedded in ONNX graph"
+  },
+  "export": {
+    "opset": 18,
+    "exporter": "torch.onnx legacy (dynamo=False)",
+    "max_logit_error": 4.76837158203125e-06
+  }
+}

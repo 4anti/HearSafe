@@ -1,0 +1,10 @@
+LiteRT Python interpreter and runtime
+Copyright 2018 The TensorFlow Authors. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0. The license text is included
+alongside this notice. The Python interpreter source's original attribution
+and license headers are preserved in the bundled module.
+
+Upstream: https://github.com/google-ai-edge/LiteRT
+Python wheel: ai-edge-litert
+The exact wheel version is listed in ../inventory.json.

@@ -1,0 +1,3 @@
+YAMNet pretrained audio classifier by Google, distributed under Apache 2.0.
+Source/model provenance is recorded in manifest.json. HearSafe code is MIT.
+This model is included unmodified. Model scores are not calibrated correctness probabilities.
